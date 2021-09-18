@@ -1,0 +1,21 @@
+build = []
+
+
+def neglider(x, y, alive):
+    build = [(x,y), (x-1,y-1), (x-1,y+1), (x,y+1), (x+1,y)]
+    alive.extend(build)
+
+
+def nwglider(x, y, alive):
+    build = [(x,y), (x+1,y-1), (x+1,y+1), (x,y+1),(x-1,y)]
+    alive.extend(build)
+
+
+def seglider(x, y, alive):
+    build = [(x,y), (x-1,y+1), (x-1,y-1), (x,y-1), (x+1,y)]
+    alive.extend(build)
+
+
+def swglider(x, y, alive):
+    build = [(x,y), (x+1,y+1), (x+1,y-1), (x,y-1),(x-1,y)]
+    alive.extend(build)
