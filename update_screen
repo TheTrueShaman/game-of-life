@@ -1,0 +1,9 @@
+import pygame
+
+
+def update_screen(screen, color, alive):
+    screen.fill((230, 230, 230))
+    for position in alive:
+        rect = pygame.Rect(10 * position[0] + 505, -10 * position[1] + 505, 8, 8)
+        pygame.draw.rect(screen, color, rect)
+    pygame.display.flip()
