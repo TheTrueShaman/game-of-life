@@ -1,0 +1,74 @@
+import pygame
+import sys
+import time
+
+
+from update_screen import update_screen
+import preset_builds as p
+
+
+alive = []
+deadclosetoalive = []
+nextalive = []
+surround = [(0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0),(-1,1)]
+alive_num = 0
+color = (0,0,0)
+sleeptime = 0.1
+
+
+def update():
+    for (p_x, p_y) in alive:
+        for (s_x, s_y) in surround:
+            neighbor = (p_x + s_x, p_y + s_y)
+            if neighbor in alive:
+               continue
+            if neighbor not in deadclosetoalive:
+                deadclosetoalive.append(neighbor)
+
+    for (p_x, p_y) in alive:
+        alive_num = 0
+        for (s_x, s_y) in surround:
+            if (p_x + s_x, p_y + s_y) in alive:
+                    alive_num += 1
+        if alive_num == 2 or alive_num == 3:
+            nextalive.append((p_x, p_y))
+
+    for (p_x, p_y) in deadclosetoalive:
+        alive_num = 0
+        for (s_x, s_y) in surround:
+            if (p_x + s_x, p_y + s_y) in alive:
+                    alive_num += 1
+        if alive_num == 3:
+            nextalive.append((p_x, p_y))
+
+    alive.clear()
+    deadclosetoalive.clear()
+    alive.extend(nextalive)
+    nextalive.clear()
+
+def eventcheck():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+def run_game():
+    # Initialize game and create a screen object.
+    pygame.init()
+    screen = pygame.display.set_mode(
+        (1010, 810))
+    pygame.display.set_caption("Game of Life")
+
+    while True:
+        eventcheck()
+
+        update()
+        update_screen(screen, color, alive)
+        time.sleep(sleeptime)
+
+
+
+p.neglider(0,5, alive)
+p.nwglider(0,10, alive)
+p.swglider(0,-10, alive)
+p.seglider(0,-5, alive)
+run_game()
