@@ -61,17 +61,14 @@ def eventcheck():
 def run_game():
     # Initialize game and create a screen object.
     pygame.init()
-    screen = pygame.display.set_mode(
-        (1010, 810))
+    screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
     pygame.display.set_caption("Game of Life")
-
+    
     while True:
         eventcheck()
-
         update()
         update_screen(screen, alive)
         time.sleep(sleeptime)
 
 
 run_game()
-
