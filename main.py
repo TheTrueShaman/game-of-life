@@ -3,10 +3,12 @@ import sys
 import time
 
 
-from update_screen import update_screen
 import preset_builds as p
+import game_functions as gf
+from settings import Settings
 
 
+golsettings = Settings()
 alive = []
 sleeptime = 0.1
 
@@ -52,23 +54,19 @@ def update():
     alive.extend(nextalive)
 
 
-def eventcheck():
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-
-
 def run_game():
     # Initialize game and create a screen object.
     pygame.init()
     screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
     pygame.display.set_caption("Game of Life")
-    
+
     while True:
-        eventcheck()
-        update()
-        update_screen(screen, alive)
-        time.sleep(sleeptime)
+        gf.eventcheck(golsettings)
+
+        if golsettings.gamerunning:
+            update()
+            gf.update_screen(screen, alive, golsettings)
+            time.sleep(sleeptime)
 
 
 run_game()
