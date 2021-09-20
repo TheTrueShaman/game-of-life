@@ -16,12 +16,12 @@ sleeptime = 0.1
 def surrounding_cells(cell):
     (x, y) = cell
     yield (x - 1, y + 1)
-    yield (x    , y + 1)
+    yield (x, y + 1)
     yield (x + 1, y + 1)
     yield (x - 1, y)
     yield (x + 1, y)
     yield (x - 1, y - 1)
-    yield (x    , y - 1)
+    yield (x, y - 1)
     yield (x + 1, y - 1)
 
 
@@ -36,7 +36,7 @@ def update():
     for cell in alive:
         for neighbor in surrounding_cells(cell):
             if neighbor in alive:
-               continue
+                continue
             if neighbor not in deadclosetoalive:
                 deadclosetoalive.append(neighbor)
 
