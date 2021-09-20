@@ -9,7 +9,7 @@ from settings import Settings
 
 
 golsettings = Settings()
-alive = []
+alive = set()
 sleeptime = 0.1
 
 
@@ -51,7 +51,7 @@ def update():
             nextalive.append(cell)
 
     alive.clear()
-    alive.extend(nextalive)
+    alive.update(nextalive)
 
 
 def run_game():
