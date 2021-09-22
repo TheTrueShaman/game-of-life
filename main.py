@@ -30,7 +30,7 @@ def count_alive_neighbors(cell):
 
 
 def update():
-    deadclosetoalive = []
+    deadclosetoalive = set()
     nextalive = []
 
     for cell in alive:
@@ -38,7 +38,7 @@ def update():
             if neighbor in alive:
                 continue
             if neighbor not in deadclosetoalive:
-                deadclosetoalive.append(neighbor)
+                deadclosetoalive.add(neighbor)
 
     for cell in alive:
         alive_num = count_alive_neighbors(cell)
