@@ -16,6 +16,9 @@ class Settings:
         # Sets the game to running. If gamerunning = false, the game is paused
         self.gamerunning = True
 
+        # If true, a grid of lines will show up on the screen, separating tiles.
+        self.gridshown = True
+
         self.movingleft = False
         self.movingright = False
         self.movingup = False
