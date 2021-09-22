@@ -3,6 +3,7 @@ import sys
 
 
 COLOR = (0, 0, 0)
+COLOR1 = (255, 255, 255)
 screencenter = [0, 0]
 
 
@@ -50,8 +51,23 @@ def update_screen(screen, alive, golsettings):
 
     screen.fill((230, 230, 230))
     (w_width, w_height) = pygame.display.get_window_size()
+
+    if golsettings.gridshown == True and golsettings.zoom >= 1:
+        x = 0
+        while x < (golsettings.zoom/10 * w_width):
+            x += 1
+            rect = pygame.Rect((x - 1) * golsettings.zoom * 10 - 1, 0, golsettings.zoom, w_height)
+            pygame.draw.rect(screen, COLOR1, rect)
+        x = 0
+        while x < (golsettings.zoom/10 * w_height):
+            x += 1
+            rect = pygame.Rect(0, (x - 1) * golsettings.zoom * 10 + 2, w_width, golsettings.zoom)
+            pygame.draw.rect(screen, COLOR1, rect)
+
+
     for position in alive:
-        rect = pygame.Rect(10 * position[0] + w_width/2 + screencenter[0],
-                           -10 * position[1] + w_height/2 + screencenter[1], 8, 8)
+        rect = pygame.Rect((10 * position[0] + w_width/2 + screencenter[0]) * golsettings.zoom,
+                           (-10 * position[1] + w_height/2 + screencenter[1]) * golsettings.zoom, golsettings.zoom * 9,
+                           golsettings.zoom * 9)
         pygame.draw.rect(screen, COLOR, rect)
     pygame.display.flip()
