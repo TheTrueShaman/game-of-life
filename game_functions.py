@@ -27,10 +27,15 @@ def keydowneventcheck(event, golsettings):
     if event.key == golsettings.shiftdown:
         golsettings.movingdown = True
     if event.key == golsettings.zoomin:
-        golsettings.zoom += 1
+        if golsettings.zoom >= 1:
+            golsettings.zoom += 1
+        else:
+            golsettings.zoom += 0.1
     if event.key == golsettings.zoomout:
         if golsettings.zoom > 1:
             golsettings.zoom -= 1
+        elif golsettings.zoom > 0.3:
+            golsettings.zoom -= 0.1
 
 def keyupeventcheck(event, golsettings):
     if event.key == golsettings.shiftleft:
