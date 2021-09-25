@@ -26,7 +26,11 @@ def keydowneventcheck(event, golsettings):
         golsettings.movingup = True
     if event.key == golsettings.shiftdown:
         golsettings.movingdown = True
-
+    if event.key == golsettings.zoomin:
+        golsettings.zoom += 1
+    if event.key == golsettings.zoomout:
+        if golsettings.zoom > 1:
+            golsettings.zoom -= 1
 
 def keyupeventcheck(event, golsettings):
     if event.key == golsettings.shiftleft:
@@ -56,18 +60,17 @@ def update_screen(screen, alive, golsettings):
         x = 0
         while x < (golsettings.zoom/10 * w_width):
             x += 1
-            rect = pygame.Rect((x - 1) * golsettings.zoom * 10 - 1, 0, golsettings.zoom, w_height)
+            rect = pygame.Rect((x - 1) * golsettings.zoom * 10 - golsettings.zoom, 0, golsettings.zoom, w_height)
             pygame.draw.rect(screen, COLOR1, rect)
         x = 0
         while x < (golsettings.zoom/10 * w_height):
             x += 1
-            rect = pygame.Rect(0, (x - 1) * golsettings.zoom * 10 + 2, w_width, golsettings.zoom)
+            rect = pygame.Rect(0, (x - 1) * golsettings.zoom * 10 - golsettings.zoom, w_width, golsettings.zoom)
             pygame.draw.rect(screen, COLOR1, rect)
 
-
     for position in alive:
-        rect = pygame.Rect((10 * position[0] + w_width/2 + screencenter[0]) * golsettings.zoom,
-                           (-10 * position[1] + w_height/2 + screencenter[1]) * golsettings.zoom, golsettings.zoom * 9,
+        rect = pygame.Rect((10 * position[0] + round((w_width/2)/10) * 10 + screencenter[0]) * golsettings.zoom,
+                           (-10 * position[1] + round((w_height/2)/10) * 10 + screencenter[1]) * golsettings.zoom, golsettings.zoom * 9,
                            golsettings.zoom * 9)
         pygame.draw.rect(screen, COLOR, rect)
     pygame.display.flip()
