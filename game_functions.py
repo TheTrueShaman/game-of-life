@@ -55,14 +55,24 @@ def keyupeventcheck(event, golsettings):
 
 
 def update_screen(screen, alive, golsettings):
-    if golsettings.movingleft and not golsettings.movingright:
-        screencenter[0] += golsettings.moverate
-    elif golsettings.movingright and not golsettings.movingleft:
-        screencenter[0] -= golsettings.moverate
-    if golsettings.movingdown and not golsettings.movingup:
-        screencenter[1] -= golsettings.moverate
-    elif golsettings.movingup and not golsettings.movingdown:
-        screencenter[1] += golsettings.moverate
+    if golsettings.dynamicmovement == False:
+        if golsettings.movingleft and not golsettings.movingright:
+            screencenter[0] += golsettings.moverate
+        elif golsettings.movingright and not golsettings.movingleft:
+            screencenter[0] -= golsettings.moverate
+        if golsettings.movingdown and not golsettings.movingup:
+            screencenter[1] -= golsettings.moverate
+        elif golsettings.movingup and not golsettings.movingdown:
+            screencenter[1] += golsettings.moverate
+    else:
+        if golsettings.movingleft and not golsettings.movingright:
+            screencenter[0] += golsettings.moverate * 1/golsettings.zoom
+        elif golsettings.movingright and not golsettings.movingleft:
+            screencenter[0] -= golsettings.moverate * 1/golsettings.zoom
+        if golsettings.movingdown and not golsettings.movingup:
+            screencenter[1] -= golsettings.moverate * 1/golsettings.zoom
+        elif golsettings.movingup and not golsettings.movingdown:
+            screencenter[1] += golsettings.moverate * 1/golsettings.zoom
 
     screen.fill((230, 230, 230))
     (w_width, w_height) = pygame.display.get_window_size()
