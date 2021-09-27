@@ -7,6 +7,11 @@ COLOR1 = (255, 255, 255)
 screencenter = [0, 0]
 
 
+# Function to help so that things are placed correctly when zooming in and out.
+def roundthingy(axis, golsettings):
+    return round((round((axis/2)/10) * 10)/(10 * golsettings.zoom)) * 10 * golsettings.zoom
+
+
 def eventcheck(golsettings):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -36,6 +41,7 @@ def keydowneventcheck(event, golsettings):
             golsettings.zoom -= 1
         elif golsettings.zoom > 0.3:
             golsettings.zoom -= 0.1
+
 
 def keyupeventcheck(event, golsettings):
     if event.key == golsettings.shiftleft:
@@ -74,8 +80,9 @@ def update_screen(screen, alive, golsettings):
             pygame.draw.rect(screen, COLOR1, rect)
 
     for position in alive:
-        rect = pygame.Rect((10 * position[0] + round((w_width/2)/10) * 10 + screencenter[0]) * golsettings.zoom,
-                           (-10 * position[1] + round((w_height/2)/10) * 10 + screencenter[1]) * golsettings.zoom, golsettings.zoom * 9,
-                           golsettings.zoom * 9)
+        rect = pygame.Rect(
+            (10 * position[0] + screencenter[0]) * golsettings.zoom  + roundthingy(w_width, golsettings),
+            (-10 * position[1] + screencenter[1]) * golsettings.zoom + roundthingy(w_height, golsettings),
+            golsettings.zoom * 9, golsettings.zoom * 9)
         pygame.draw.rect(screen, COLOR, rect)
     pygame.display.flip()
