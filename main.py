@@ -66,7 +66,7 @@ def run_game():
         if golsettings.gamerunning:
             update()
             gf.update_screen(screen, alive, golsettings)
-            time.sleep(sleeptime)
+            time.sleep(golsettings.sleeptime)
 
 
 run_game()
