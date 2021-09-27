@@ -19,6 +19,10 @@ class Settings:
         # If true, a grid of lines will show up on the screen, separating tiles.
         self.gridshown = True
 
+        # If true, the moverate will increase based on zoom
+        self.dynamicmovement = False
+
+        self.sleeptime = 0.1
         self.movingleft = False
         self.movingright = False
         self.movingup = False
